@@ -60,7 +60,7 @@ def short():
             </script>'''
         conn.commit()
         conn.close()
-        url = "https://127.0.0.1:5000/s/"+custom
+        url = "https://shrink-link/s/"+custom
 
         return 'Live at <a target="_blank" href="'+url+'">'+url+'</a>'
     return ""
