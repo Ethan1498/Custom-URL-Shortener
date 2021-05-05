@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask,render_template,request,redirect
+from flask import Flask
+from flask import request
+from flask import render_template
+from flask import redirect
 import sqlite3 as sql
 import requests
 
@@ -12,7 +15,7 @@ def hello_world():
     return render_template('index.html')
 
 
-@app.route('/shortener',methods=['GET','POST'])
+@app.route('/s',methods=['GET','POST'])
 def short():
     if request.method=='POST':
         longurl = request.form['longurl']
@@ -39,8 +42,8 @@ def short():
 
             </script>'''
 
-        print longurl
-        print custom
+        print (longurl)
+        print (custom)
         conn = sql.connect('urls.db')
         cursor = conn.cursor()
         #print cursor.execute("SELECT * FROM urls;")
@@ -57,12 +60,12 @@ def short():
             </script>'''
         conn.commit()
         conn.close()
-        url = "http://127.0.0.1:5000/shortener/"+custom
+        url = "https://127.0.0.1:5000/s/"+custom
 
         return 'Live at <a target="_blank" href="'+url+'">'+url+'</a>'
     return ""
 
-@app.route('/shortener/<custom>',methods=['GET','POST'])
+@app.route('/s/<custom>',methods=['GET','POST'])
 def final(custom):
 
     conn = sql.connect('urls.db')
@@ -74,7 +77,7 @@ def final(custom):
         return_this= row[0]
 
 
-    print return_this
+    print (return_this)
 
     return redirect(return_this,code=302)
 
